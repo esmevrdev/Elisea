@@ -1,3 +1,5 @@
+// Importamos el hook de navegación
+import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import {
   Dimensions,
@@ -12,20 +14,21 @@ import {
 } from 'react-native';
 
 const { width } = Dimensions.get('window');
-const CIRCLE_SIZE = width * 1.35; // puedes ajustar 1.35 si quieres más o menos curva
+const CIRCLE_SIZE = width * 1.35; 
 
-
-export default function ContraseñaSeguridadCambio({ onContinue }) {
+export default function ContraseñaSeguridadCambio() {
+  // 1. Inicializamos la navegación
+  const navigation = useNavigation();
+  
   const [password, setPassword] = useState('');
   const [visible, setVisible] = useState(false);
 
-
-    const HERO_IMAGE = require('../assets/images/img_fiesta.png');
+  const HERO_IMAGE = require('../assets/images/img_fiesta.png');
 
   const handleContinue = () => {
-      if (onContinue) {
-        onContinue(); 
-      }
+      // 2. Aquí le decimos que vaya a la siguiente pantalla
+      // Asegúrate de que el nombre 'NuevaContrasena' sea igual al de App.js
+      navigation.navigate('NuevaContrasena');
   };
 
   return (
@@ -60,7 +63,6 @@ export default function ContraseñaSeguridadCambio({ onContinue }) {
               style={styles.lockBtn}
               activeOpacity={0.7}
             >
-              {/* Puedes reemplazar el emoji por un icono de vector si tienes librería */}
               <Text style={styles.lockIcon}>{visible ? '🔓' : '🔒'}</Text>
             </TouchableOpacity>
           </View>
@@ -77,33 +79,26 @@ export default function ContraseñaSeguridadCambio({ onContinue }) {
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: '#fff' },
   container: { paddingBottom: 40, backgroundColor: '#fff' },
-
-  /* HERO IMAGE - curva en la parte inferior */
-heroWrap: {
-  backgroundColor: '#fff',
-  alignItems: 'center',
-},
-
-heroCircle: {
-  width: CIRCLE_SIZE,
-  height: CIRCLE_SIZE,
-  borderRadius: CIRCLE_SIZE / 2,
-  overflow: 'hidden',
-  marginTop: -CIRCLE_SIZE * 0.35, // ajusta cuánto “sube” el círculo
-},
-
-heroImage: {
-  width: '100%',
-  height: '100%',
-  resizeMode: 'cover',
-},
-
+  heroWrap: {
+    backgroundColor: '#fff',
+    alignItems: 'center',
+  },
+  heroCircle: {
+    width: CIRCLE_SIZE,
+    height: CIRCLE_SIZE,
+    borderRadius: CIRCLE_SIZE / 2,
+    overflow: 'hidden',
+    marginTop: -CIRCLE_SIZE * 0.35,
+  },
+  heroImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
   content: { paddingHorizontal: 24, paddingTop: 24 },
   title: { fontSize: 18, fontWeight: '700', color: '#111', marginBottom: 10 },
   subtitle: { fontSize: 13, color: '#444', marginBottom: 18 },
-
   label: { color: '#b15aa8', fontWeight: '700', marginBottom: 8 },
-
   inputRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -130,7 +125,6 @@ heroImage: {
     marginLeft: 8,
   },
   lockIcon: { fontSize: 16 },
-
   cta: {
     alignSelf: 'center',
     backgroundColor: '#c78fc0',

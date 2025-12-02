@@ -1,13 +1,15 @@
 // SalonesFiltrado.js
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View, } from 'react-native';
-import Evento from '../components/Evento';
-import Fechas from '../components/Fecha';
-import Lugar from '../components/Lugar';
-import Personas from '../components/Persona';
-import Precios from '../components/PrecioSalones';
-import Tipo from '../components/Tipo';
+import Evento from '../components/Filters/Evento';
+import Fechas from '../components/Filters/Fecha';
+import Lugar from '../components/Filters/Lugar';
+import Personas from '../components/Filters/Persona';
+import Precios from '../components/Filters/PrecioSalones';
+import Tipo from '../components/Filters/Tipo';
+import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
 
 const SalonesFiltrado = ({ navigation }) => {
   const [filtros, setFiltros] = useState({
@@ -48,6 +50,7 @@ const SalonesFiltrado = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Navbar />
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -155,6 +158,7 @@ const SalonesFiltrado = ({ navigation }) => {
           <Text style={styles.applyButtonText}>Aplicar Filtros</Text>
         </TouchableOpacity>
       </View>
+      <Footer />
     </View>
   );
 };

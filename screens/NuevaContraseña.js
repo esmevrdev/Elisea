@@ -1,14 +1,17 @@
+import { Ionicons } from '@expo/vector-icons'; // 1. Importamos iconos
+import { useNavigation } from '@react-navigation/native'; // 2. Importamos navegación
 import { useState } from 'react';
 import {
-    Dimensions,
-    Image,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Dimensions,
+  Image,
+  Modal, // 3. Importamos Modal
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 const { width } = Dimensions.get('window');
@@ -17,19 +20,39 @@ const CIRCLE_SIZE = width * 1.35;
 const HERO_IMAGE = require('../assets/images/img_fiesta.png');
 
 export default function NuevaContrasena() {
+  const navigation = useNavigation(); // Hook de navegación
+  
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
+  
+  // Estado para controlar la visibilidad del aviso de éxito
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleActualizar = () => {
-    console.log('Actualizar contraseña:', { password, confirm });
+    // Aquí podrías validar que las contraseñas coincidan antes
+    if (password !== confirm) {
+        alert("Las contraseñas no coinciden");
+        return;
+    }
+    // Si todo está bien, mostramos el modal
+    setShowSuccess(true);
+  };
+
+  const handleNavigateLogin = () => {
+    setShowSuccess(false); // Cerramos el modal
+    navigation.reset({
+        index: 0,
+        routes: [{ name: 'Login' }], // Reseteamos para que no pueda volver atrás
+    });
+    // O simplemente: navigation.navigate('Login');
   };
 
   return (
     <SafeAreaView style={styles.safe}>
       <ScrollView contentContainerStyle={styles.container}>
-        {/* IMAGEN SUPERIOR IGUAL QUE EN LA PRIMERA PANTALLA */}
+        {/* IMAGEN SUPERIOR */}
         <View style={styles.heroWrap}>
           <View style={styles.heroCircle}>
             <Image source={HERO_IMAGE} style={styles.heroImage} />
@@ -90,6 +113,32 @@ export default function NuevaContrasena() {
           </TouchableOpacity>
         </View>
       </ScrollView>
+
+      {/* --- MODAL DE ÉXITO (EL POST) --- */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={showSuccess}
+        onRequestClose={() => {}} // Bloquea el botón atrás de Android
+      >
+        <View style={styles.modalOverlay}>
+            <TouchableOpacity 
+                style={styles.successCard} 
+                onPress={handleNavigateLogin}
+                activeOpacity={0.9}
+            >
+                <View style={styles.iconContainer}>
+                    <Ionicons name="checkmark-circle" size={80} color="#c78fc0" />
+                </View>
+                <Text style={styles.successTitle}>¡Contraseña Actualizada!</Text>
+                <Text style={styles.successText}>
+                    El cambio fue exitoso.{"\n"}Toca aquí para iniciar sesión.
+                </Text>
+            </TouchableOpacity>
+        </View>
+      </Modal>
+      {/* -------------------------------- */}
+
     </SafeAreaView>
   );
 }
@@ -175,5 +224,41 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '700',
     textAlign: 'center',
+  },
+
+  // --- ESTILOS DEL MODAL (NUEVOS) ---
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)', // Fondo oscuro semitransparente
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  successCard: {
+    width: '80%',
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    padding: 30,
+    alignItems: 'center',
+    elevation: 10, // Sombra en Android
+    shadowColor: '#000', // Sombra en iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  iconContainer: {
+    marginBottom: 15,
+  },
+  successTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#210535',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  successText: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+    lineHeight: 20,
   },
 });

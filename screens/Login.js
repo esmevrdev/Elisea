@@ -1,6 +1,6 @@
 import { Entypo, FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Dimensions, Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
 export default function Login() {
@@ -51,12 +51,15 @@ export default function Login() {
             />
           </View>
 
-          <TouchableOpacity onPress={() => navigation.navigate('Recuperar')}>
+          <TouchableOpacity onPress={() => navigation.navigate('ContrasenaSeguridad')}>
             <Text style={styles.link}>¿Olvidaste tu contraseña?</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Dashboard')}>
-            <Text style={styles.buttonText}>ENTRAR</Text>
+          <TouchableOpacity 
+            style={styles.button} 
+            onPress={() => navigation.navigate('Home')}
+          >
+          <Text style={styles.buttonText}>ENTRAR</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('Registro')}>
