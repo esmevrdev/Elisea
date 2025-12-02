@@ -1,6 +1,61 @@
-import { useState } from 'react';
-import Contraseña_de_seguridad_del_cambio from '../../screens/Contrasena_de_seguridad_del_cambio';
-import NuevaContraseña from '../../screens/NuevaContraseña';
+/*import { useNavigation } from '@react-navigation/native';
+import Login from '../../pages/Login';
+
+export default function Index() {
+  const navigation = useNavigation();
+  return <Login />;
+}*/
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+
+// Importa tus pantallas
+import Home from '../../screens/Home';
+import Login from '../../screens/Login';
+import Salones from '../../screens/Salones';
+import SalonesFiltrado from '../../screens/SalonesFiltrado';
+
+const Stack = createStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator 
+        initialRouteName="Login"
+        screenOptions={{
+          headerShown: false,
+          cardStyle: { backgroundColor: '#FFFFFF' },
+        }}
+      >
+        <Stack.Screen 
+          name="Login" 
+          component={Login}
+        />
+
+        <Stack.Screen 
+          name="Home" 
+          component={Home}
+        />
+      
+        <Stack.Screen 
+          name="Salones" 
+          component={Salones}
+        />
+        
+        <Stack.Screen 
+          name="SalonesFiltrado" 
+          component={SalonesFiltrado}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+//CAMBIO DE CONTRASEÑA
+/*import { useState } from 'react';
+import Contraseña_de_seguridad_del_cambio from '../../pages/Contrasena_de_seguridad_del_cambio';
+import NuevaContraseña from '../../pages/NuevaContraseña';
 
 export default function Index() {
 const [step, setStep] = useState(1);
@@ -13,6 +68,8 @@ if (step === 1) {
 
    return <NuevaContraseña />;
 }
+   */
+
 /* FILTRADO
 
 import { useNavigation } from '@react-navigation/native';
@@ -22,12 +79,6 @@ import Filtrado from '../../pages/Filtrado';
 export default function Index() {
   const navigation = useNavigation();
   return <Filtrado />;
-}
-import Login from '../../pages/Login';
-
-export default function Index() {
-  const navigation = useNavigation();
-  return <Login />;
 }
   */
 
@@ -66,7 +117,7 @@ export default function Index() {
 
 */
 
-import { createStackNavigator } from '@react-navigation/stack';
+/*import { createStackNavigator } from '@react-navigation/stack';
 import Salones from '../../pages/Salones';
 import SalonesFiltrado from '../../pages/SalonesFiltrado';
 
@@ -80,5 +131,6 @@ export default function App() {
       </Stack.Navigator>
   );
 }
+  */
 
 /* <Stack.Screen name="DetallesSalon" component={DetallesSalon} /> */

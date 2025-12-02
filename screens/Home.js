@@ -76,7 +76,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#DECEE6',
+    backgroundColor: '#ffffffff',
   },
   scrollContent: {
     paddingBottom: 80,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
     width: 140,
     height: 160,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#DECEE6',
     borderRadius: 10,
     overflow: 'hidden',
     alignItems: 'center',
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   cardGrid: {
     width: '48%',
     height: 140,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#DECEE6',
     borderRadius: 10,
     marginBottom: 15,
     overflow: 'hidden',

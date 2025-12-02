@@ -36,27 +36,42 @@ export default function Salones({ route }) {
   });
 
   const renderSalon = ({ item }) => (
-  <TouchableOpacity 
-  style={styles.card}
-  onPress={() => navigation.navigate('DetallesSalon', { salon: item })}
->
-  <Image source={item.imagen} style={styles.image} resizeMode="cover" />
-  <Text style={styles.title}>{item.nombre}</Text>
-</TouchableOpacity>
-);
+    <TouchableOpacity 
+      style={styles.card}
+      onPress={() => navigation.navigate('DetallesSalon', { salon: item })}
+    >
+      <Image source={item.imagen} style={styles.image} resizeMode="cover" />
+      <Text style={styles.title}>{item.nombre}</Text>
+    </TouchableOpacity>
+  );
 
   return (
     <View style={styles.container}>
       <Navbar />
+      
+      {/* --- HEADER MODIFICADO --- */}
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Salones</Text>
+        {/* Lado Izquierdo: Flecha + Título */}
+        <View style={styles.headerLeft}>
+          <TouchableOpacity 
+            onPress={() => navigation.goBack()} 
+            style={styles.backButton}
+          >
+            <Ionicons name="arrow-back" size={24} color="#6f2dbd" />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Salones</Text>
+        </View>
+
+        {/* Lado Derecho: Botón de Filtro */}
         <TouchableOpacity 
-          onPress={() => navigation.navigate('Filtrado')}
+          onPress={() => navigation.navigate('SalonesFiltrado')}
           style={styles.filterButton}
+          activeOpacity={0.7}
         >
           <Ionicons name="filter" size={24} color="#6f2dbd" />
         </TouchableOpacity>
       </View>
+      {/* ------------------------- */}
 
       <FlatList
         data={salonesFiltered}
@@ -80,9 +95,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between', // Separa (Flecha+Titulo) a la izq y (Filtro) a la der
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    zIndex: 10,
+  },
+  // --- Estilos Nuevos ---
+  headerLeft: {
+    flexDirection: 'row',
     alignItems: 'center',
   },
+  backButton: {
+    marginRight: 10, // Espacio entre la flecha y el texto "Salones"
+    padding: 4,      // Aumenta el área táctil
+  },
+  // ----------------------
   headerTitle: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -90,6 +117,8 @@ const styles = StyleSheet.create({
   },
   filterButton: {
     padding: 8,
+    backgroundColor: '#f3f0ff',
+    borderRadius: 8,
   },
   list: {
     paddingHorizontal: 10,
